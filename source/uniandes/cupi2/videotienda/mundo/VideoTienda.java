@@ -139,8 +139,33 @@ public class VideoTienda
     public Cliente buscarCliente( String cedula )
     {
     	//TODO implementar
+    	for(Cliente cliente : clientes)
+    	{
+    		if(cliente.darCedula().equals(cedula));
+    		{
+    			return cliente;
+    		}
+    	}
+    	return null;
     }
-
+    
+    /**
+     * Buscar una película en el catálogo por título
+     * @param titulo Título de la película a buscar. titulo != null.
+     * @return la película correspondiente al título, o null si no exite.
+     */
+    public Pelicula buscarPelicula(String titulo)
+    {
+    	for(Pelicula pelicula : catalogo)
+    	{
+    		if(pelicula.darTitulo().equals(titulo))
+    		{
+    			return pelicula;
+    		}
+    	}
+    	return null;
+    }
+    
 
 
     /**

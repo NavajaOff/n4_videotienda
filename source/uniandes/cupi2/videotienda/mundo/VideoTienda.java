@@ -36,11 +36,7 @@ public class VideoTienda
      * Clientes
      */
     //TODO declare el atributo
-<<<<<<< HEAD
-z
-=======
     private ArrayList<Cliente> clientes;
->>>>>>> branch 'develop' of https://github.com/NavajaOff/n4_videotienda.git
     /**
      * Cat�logo de pel�culas
      */
@@ -314,23 +310,19 @@ z
      * @return ArrayList la lista de clientes
      */
     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
-<<<<<<< HEAD
 
-=======
    	public ArrayList<Cliente> darListaClientes()
    	{
    		return clientes;
    	}
    	
->>>>>>> branch 'develop' of https://github.com/NavajaOff/n4_videotienda.git
+
     /**
      * Retorna el cat�logo de pel�culas de la videotienda
      * @return lista de pel�culas existentes. lista != null.
      */
     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
-<<<<<<< HEAD
 
-=======
    	public ArrayList<Pelicula> darCatalogo()
    	{
    		return catalago;
@@ -346,7 +338,6 @@ z
    		return tarifaDiaria;
    	}
    	
->>>>>>> branch 'develop' of https://github.com/NavajaOff/n4_videotienda.git
     //-----------------------------------------------------------------
     // Puntos de Extensi�n
     //-----------------------------------------------------------------

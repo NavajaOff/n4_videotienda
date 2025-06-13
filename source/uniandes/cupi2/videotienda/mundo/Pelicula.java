@@ -62,4 +62,21 @@ public class Pelicula
     	//TODO implementar inicializando los atributos
     }
 
+    //-----------------------------------------------------------------
+    // M�todos
+    //-----------------------------------------------------------------
+
+    /**
+     * Adiciona una nueva copia de la pel�cula. <br>
+     * <b>post: </b>La lista de pel�culas disponibles tiene una nueva copia.
+     * @return c�digo de la copia creada. c�digo >= 1;
+     */
+    public int agregarCopia( )
+    {
+    	Copia nueva = new Copia(codigoSiguienteCopia);
+    	disponibles.add(nueva);
+    	return codigoSiguienteCopia ++;
+    	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n. 
+    }
+
 }

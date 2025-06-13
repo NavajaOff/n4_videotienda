@@ -126,4 +126,22 @@ public class Pelicula
     	throw new Exception("La copia con código" + codigoCopia + " no está prestada" );
     }
     
+    public int darTotalCopias() {
+    	return disponibles.size() + prestadas.size();
+    }
+    
+    public int darNumeroDisponibles() {
+    	return disponibles.size();
+    }
+    /**
+     * Retorna la cantidad total de copias que existen de la pel�cula en la videotienda
+     * @return entero con la cantidad de copias que existen en la tienda
+     */
+    //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
+
+    /**
+     * Retorna el n�mero de copias disponibles
+     * @return n�mero de copias disponibles
+     */
+    //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
 }

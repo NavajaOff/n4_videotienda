@@ -141,7 +141,7 @@ public class VideoTienda
     	//TODO implementar
     	for(Cliente cliente : clientes)
     	{
-    		if(cliente.darCedula().equals(cedula));
+    		if(cliente.darCedula().equals(cedula))
     		{
     			return cliente;
     		}
@@ -223,13 +223,13 @@ public class VideoTienda
     		throw  new Exception("La película" + titulo + "no existe en el catálogo");
     	}
     	
-    	if(pelicula.darNumeroDisponible() == 0)
+    	if(pelicula.darNumeroDisponibles() == 0)
     	{
     		throw new Exception("No hay copias disponibles de la película" + titulo);
     	}
     	
     	Copia copiaAlquilada = pelicula.alquilarCopia();
-    	cliente.adquilarCopia(copiaAlquilada);
+    	cliente.alquilarCopia(copiaAlquilada);
     	cliente.descargarSaldo(tarifaDiaria);
     	
     	return copiaAlquilada.darCodigo();
@@ -244,34 +244,25 @@ public class VideoTienda
      * @throws Exception Si el cliente no existe.
      * @throws Exception Si el cliente no tiene la copia alquilada.
      */
-    public void devolverCopia( String titulo, int numeroCopia, String cedula ) throws Exception
-    {
-    	//TODO implementar
-    	Cliente cliente = buscarCliente(cedula);
-    	if(cliente == null)
-    	{
-    		throw new Exception("El cliente con cédula" + cedula + "no existe");
-    	}
-    	
-    	Copia copiaADevolver = cliente.buscarPeliculaAlquilada(titulo, numeroCopia);
-    	if(copiaADevolver = null)
-    	{
-    		throw new Exception("El cliente no tiene alquilada la copia" + numeroCopia + "de la película" + titulo);
-    	}
-    	
-    	Pelicula pelicula = buscarPelicula(titulo, numeroCopia);
-    	{
-    		throw new Exception("El cliente no tiene alquilada la copia" + numeroCopia + "de la película" + titulo);
-    	}
-    	
-    	Pelicula pelicula = buscarPelicula(titulo);
-    	if(pelicula != null)
-    	{
-    		pelicula.devolverCopia(numeroCopia);
-    		
-    		cliente.devolverCopia(titulo, numeroCopia);
-    	}
+    public void devolverCopia(String titulo, int numeroCopia, String cedula) throws Exception {
+        Cliente cliente = buscarCliente(cedula);
+        if (cliente == null) {
+            throw new Exception("El cliente con cédula " + cedula + " no existe");
+        }
+
+        Copia copiaADevolver = cliente.buscarPeliculaAlquilada(titulo, numeroCopia);
+        if (copiaADevolver == null) {
+            throw new Exception("El cliente no tiene alquilada la copia " + numeroCopia + " de la película " + titulo);
+        }
+
+        Pelicula pelicula = buscarPelicula(titulo);
+        if (pelicula == null) {
+            throw new Exception("La película " + titulo + " no existe en el catálogo");
+        }
+        pelicula.devolverCopia(numeroCopia);
+        cliente.devolverCopia(titulo, numeroCopia);
     }
+
     
     /**
     * Agrega una nueva copia de una película existente
@@ -325,7 +316,7 @@ public class VideoTienda
 
    	public ArrayList<Pelicula> darCatalogo()
    	{
-   		return catalago;
+   		return catalogo;
    	}
    	
    	/**

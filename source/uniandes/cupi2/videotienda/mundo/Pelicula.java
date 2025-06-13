@@ -33,12 +33,12 @@ public class Pelicula
     /**
      * Lista de copias disponibles
      */
-    private ArrayList disponibles;
+    private ArrayList<Copia> disponibles;
 
     /**
      * Lista de copias prestadas
      */
-    private ArrayList prestadas;
+    private ArrayList<Copia> prestadas;
 
     /**
      * N�mero de la siguiente copia a adicionar
@@ -73,10 +73,9 @@ public class Pelicula
      */
     public int agregarCopia( )
     {
-    	Copia nueva = new Copia(codigoSiguienteCopia);
-    	disponibles.add(nueva);
-    	return codigoSiguienteCopia ++;
-    	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n. 
+        Copia nueva = new Copia(titulo, codigoSiguienteCopia);
+        disponibles.add(nueva);
+        return codigoSiguienteCopia++;
     }
 
     /**
@@ -86,7 +85,7 @@ public class Pelicula
      */
     public Copia alquilarCopia( )
     {
-    	if (disponible.isEmpty())
+    	if (disponibles.isEmpty())
     	{
     		return null;
     	}
@@ -114,7 +113,7 @@ public class Pelicula
         return titulo;
     }
     
-    public Copia devolvercopia( int codigoCopia) throws Exception {
+    public void devolverCopia( int codigoCopia) throws Exception {
     	for (int i = 0; i < prestadas.size(); i++) {
     		Copia copia = prestadas.get(i);
     		if (copia.darCodigo() == codigoCopia) {

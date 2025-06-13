@@ -1,5 +1,6 @@
 package uniandes.cupi2.videotienda.mundo;
 
+import java.util.ArrayList;
 
 public class Cliente
 {
@@ -19,16 +20,18 @@ public class Cliente
    
    private int Saldo;
 
+   private ArrayList<Copia>  alquiladas;
    //-----------------------------------------------------------------
    // Constructores
    
    
    public Cliente (String cedula, String nombre, String direccion)
    {
-	   this.Cedula = cedula;
-	   this.Nombre = nombre;
-	   this.Direccion = direccion;
-	   this.Saldo = 0;
+	   Cedula = cedula;
+	   Nombre = nombre;
+	   Direccion = direccion;
+	   Saldo = 0;
+	   alquiladas = new ArrayList<>();
    }
    
    public String darCedula()
@@ -61,4 +64,41 @@ public class Cliente
 	   return Saldo -= monto;
    }
    
+   public void alquilarCopia(Copia copia)
+   {
+	    alquiladas.add(copia);
+   }
+   
+   public int darNumeroAlquiladas() 
+   {
+	    return alquiladas.size();
+   }
+   
+   public ArrayList<Copia> darAlquiladas() 
+   {
+	    return alquiladas;
+   }
+   
+   public Copia buscarPeliculaAlquilada(String titulo, int numeroCopia) 
+   {
+	    for (Copia copia : alquiladas) {
+	    	if (copia.darTituloPelicula().equals(titulo) && copia.darCodigo() == numeroCopia)
+	    		return copia;
+	    }
+   
+   return null;
+}
+   public void devolverCopia(String titulo, int numeroCopia) 
+   {
+	    Copia copiaADevolver = null;
+	    for (Copia copia : alquiladas) {
+	    	if (copia.darTituloPelicula().equals(titulo) && copia.darCodigo() == numeroCopia) {
+	    	copiaADevolver = copia;
+	    	break;
+	    }
+   }
+   if (copiaADevolver != null) {
+	   alquiladas.remove(copiaADevolver);
+   }
+}
 }

@@ -47,4 +47,49 @@ public class Copia
 		tituloPelicula = laPelicula;
 		codigo = elCodigo;
 	}
+	
+	//-----------------------------------------------------------------
+    // Métodos
+    //-----------------------------------------------------------------
+	
+	/**
+	 * Retorna el código de la copia
+	 * @return código de la copia
+	 */
+	
+	public int darCodigo()
+	{
+		return codigo;
+	}
+	
+	/**
+	 * Retorna el título de la película
+	 *@return título de la película
+	 */
+	
+	public String darTituloPelicula()
+	{
+		return tituloPelicula;
+	}
+	
+	/**
+	 * Compara esta copia con otra copia dada
+	 * @param otra La otra copia a comparar
+	 * @return true si las copias son iguales (mismo título y código), false en caso contrario
+	 */
+	
+	public boolean esIgualA(Copia otra)
+	{
+		return tituloPelicula.equals(otra.darTituloPelicula()) && codigo == otra.darCodigo();
+	}
+	
+	/**
+	 * Representación en cadena de la copia
+	 * @return Información de la copia en formato String
+	 */
+	
+	public String toString()
+	{
+		return "Copia " + codigo + "de la película: " + tituloPelicula;
+	}
 }

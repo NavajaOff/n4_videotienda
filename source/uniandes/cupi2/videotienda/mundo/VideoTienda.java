@@ -179,6 +179,16 @@ public class VideoTienda
     public void cargarSaldoCliente( String cedula, int monto ) throws Exception
     {
     	//TODO implementar
+    	if(monto <= 0)
+    	{
+    		throw new Exception("El monto debe ser mayor que 0");
+    	}
+    	Cliente cliente = buscarCliente(cedula);
+    	if(cliente == null)
+    	{
+    		throw new Exception("El cliente con cédula" + cedula + "no existe");
+    	}
+    	cliente.cargarSaldo(monto);
     }
 
     /**
@@ -195,6 +205,8 @@ public class VideoTienda
     public int alquilarPelicula( String titulo, String cedula ) throws Exception
     {
     	//TODO implementar
+    	//Verificar que el cliente existe
+    	Cliente cliente
     }
 
     /**

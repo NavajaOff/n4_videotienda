@@ -36,5 +36,15 @@ public class Copia
     // Constructor
     //-----------------------------------------------------------------
 	
+	/**
+	 * Crear una nueva copia de una película
+	 * @param laPelicula Titulo de la película. laPicula != null
+	 * @param elCodigo Código único de la copia. elCodigo > 0
+	 */
 	
+	public Copia(String laPelicula, int elCodigo)
+	{
+		tituloPelicula = laPelicula;
+		codigo = elCodigo;
+	}
 }

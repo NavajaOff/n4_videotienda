@@ -48,13 +48,6 @@ public class Pelicula
     //-----------------------------------------------------------------
     // Constructores
     //-----------------------------------------------------------------
-    	public Pelicula(String unTitulo)
-    	{
-    		titulo = unTitulo;
-    		disponibles = new ArrayList<>();
-    		prestadas = new ArrayList<>();
-    		codigoSiguienteCopia = 1;
-    	}
     /**
      * Crea una pel�cula de la videotienda con el t�tulo dado. <br>
      * <b>post: </b> La pel�cula se crea sin copias disponibles ni prestadas.
@@ -62,63 +55,11 @@ public class Pelicula
      */
     public Pelicula( String unTitulo )
     {
+    	titulo = unTitulo;
+		disponibles = new ArrayList<>();
+		prestadas = new ArrayList<>();
+		codigoSiguienteCopia = 1;
     	//TODO implementar inicializando los atributos
     }
 
-    //-----------------------------------------------------------------
-    // M�todos
-    //-----------------------------------------------------------------
-
-    /**
-     * Adiciona una nueva copia de la pel�cula. <br>
-     * <b>post: </b>La lista de pel�culas disponibles tiene una nueva copia.
-     * @return c�digo de la copia creada. c�digo >= 1;
-     */
-    public int agregarCopia( )
-    {
-    	Copia nueva = new Copia(codigoSiguienteCopia);
-    	disponibles.add(nueva);
-    	return codigoSiguienteCopia ++;
-    	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n. 
-    }
-
-    /**
-     * Retorna una copia de pel�cula para alquilar si hay disponibles. <br>
-     * <b>post: </b> la copia queda en la lista de prestadas.
-     * @return Copia que ha sido alquilada o null si no hay disponibles.
-     */
-    public Copia alquilarCopia( )
-    {
-    	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n.
-    }
-
-    /**
-     * Devuelve una copia de la pel�cula y la coloca como disponible. <br>
-     * <b>post: </b> regresa la copia a la lista de disponibles, s�lo si est� prestada.
-     * @param codigoCopia C�digo de la copia que se quiere devolver.
-     * @throws Exception Si la copia a devolver no est� prestada.
-     */
-
-     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
-
-    /**
-     * Retorna el t�tulo de la pel�cula.
-     * @return t�tulo de la pel�cula.
-     */
-    public String darTitulo( )
-    {
-        return titulo;
-    }
-
-    /**
-     * Retorna la cantidad total de copias que existen de la pel�cula en la videotienda
-     * @return entero con la cantidad de copias que existen en la tienda
-     */
-    //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
-
-    /**
-     * Retorna el n�mero de copias disponibles
-     * @return n�mero de copias disponibles
-     */
-    //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
 }

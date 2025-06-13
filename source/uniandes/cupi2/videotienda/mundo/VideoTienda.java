@@ -36,13 +36,16 @@ public class VideoTienda
      * Clientes
      */
     //TODO declare el atributo
+<<<<<<< HEAD
 z
+=======
+    private ArrayList<Cliente> clientes;
+>>>>>>> branch 'develop' of https://github.com/NavajaOff/n4_videotienda.git
     /**
      * Cat�logo de pel�culas
      */
     //TODO declare el atributo
-    
-    //-----------------------------------------------------------------
+    private ArrayList<Pelicula> catalogo;
     // Constructores
     //-----------------------------------------------------------------
 
@@ -53,6 +56,9 @@ z
     public VideoTienda( int unaTarifa )
     {
     	//TODO implementar inicializando los atributos
+    	tarifaDiaria = unaTarifa;
+    	clientes = new ArrayList<Cliente>();
+    	catalogo = new ArrayList<Pelicula>();
     }
 
     //-----------------------------------------------------------------
@@ -79,7 +85,7 @@ z
         {
             Properties datos = new Properties( );
             FileInputStream input = new FileInputStream( archivo );
-            datos.load( input );
+            datos.load( input);
 
             //Obtiene el n�mero de pel�culas
             peliculas = Integer.parseInt( datos.getProperty( "total.peliculas" ) );
@@ -121,6 +127,12 @@ z
     public void afiliarCliente( String cedula, String nombre, String direccion ) throws Exception
     {
     	//TODO implementar
+    	Cliente clienteExistente = buscarCliente(cedula);
+    	if(clienteExistente != null) {
+    		throw new Exception("Ya existe un cliente con la cédula" + cedula);
+    	}
+    	Cliente nuevoCliente = new Cliente(cedula, nombre, direccion);
+    	clientes.add(nuevoCliente);
     }
     
     /**
@@ -131,8 +143,33 @@ z
     public Cliente buscarCliente( String cedula )
     {
     	//TODO implementar
+    	for(Cliente cliente : clientes)
+    	{
+    		if(cliente.darCedula().equals(cedula));
+    		{
+    			return cliente;
+    		}
+    	}
+    	return null;
     }
-
+    
+    /**
+     * Buscar una película en el catálogo por título
+     * @param titulo Título de la película a buscar. titulo != null.
+     * @return la película correspondiente al título, o null si no exite.
+     */
+    public Pelicula buscarPelicula(String titulo)
+    {
+    	for(Pelicula pelicula : catalogo)
+    	{
+    		if(pelicula.darTitulo().equals(titulo))
+    		{
+    			return pelicula;
+    		}
+    	}
+    	return null;
+    }
+    
 
 
     /**
@@ -146,6 +183,16 @@ z
     public void cargarSaldoCliente( String cedula, int monto ) throws Exception
     {
     	//TODO implementar
+    	if(monto <= 0)
+    	{
+    		throw new Exception("El monto debe ser mayor que 0");
+    	}
+    	Cliente cliente = buscarCliente(cedula);
+    	if(cliente == null)
+    	{
+    		throw new Exception("El cliente con cédula" + cedula + "no existe");
+    	}
+    	cliente.cargarSaldo(monto);
     }
 
     /**
@@ -162,8 +209,36 @@ z
     public int alquilarPelicula( String titulo, String cedula ) throws Exception
     {
     	//TODO implementar
+    	//Verificar que el cliente existe
+    	Cliente cliente = buscarCliente(cedula);
+    	if(cliente == null)
+    	{
+    		throw new Exception("EL cliente con cédula" + cedula + "no existe");
+    	}
+    	
+    	if(cliente.darSaldo() < tarifaDiaria)
+    	{
+    		throw new Exception("El cliente no tiene saldo suficiente para el adquiler");
+    	}
+    	
+    	Pelicula pelicula = buscarPelicula(titulo);
+    	if(pelicula == null)
+    	{
+    		throw  new Exception("La película" + titulo + "no existe en el catálogo");
+    	}
+    	
+    	if(pelicula.darNumeroDisponible() == 0)
+    	{
+    		throw new Exception("No hay copias disponibles de la película" + titulo);
+    	}
+    	
+    	Copia copiaAlquilada = pelicula.alquilarCopia();
+    	cliente.adquilarCopia(copiaAlquilada);
+    	cliente.descargarSaldo(tarifaDiaria);
+    	
+    	return copiaAlquilada.darCodigo();
     }
-
+    		
     /**
      * Devuelve a la videotienda una copia alquilada por el cliente identificado con la c�dula dada. <br>
      * <b>post: </b> Si la copia est� alquilada por el cliente, la copia se deja disponible, y el cliente ya no la tiene entre sus prestadas.
@@ -176,25 +251,102 @@ z
     public void devolverCopia( String titulo, int numeroCopia, String cedula ) throws Exception
     {
     	//TODO implementar
-
+    	Cliente cliente = buscarCliente(cedula);
+    	if(cliente == null)
+    	{
+    		throw new Exception("El cliente con cédula" + cedula + "no existe");
+    	}
+    	
+    	Copia copiaADevolver = cliente.buscarPeliculaAlquilada(titulo, numeroCopia);
+    	if(copiaADevolver = null)
+    	{
+    		throw new Exception("El cliente no tiene alquilada la copia" + numeroCopia + "de la película" + titulo);
+    	}
+    	
+    	Pelicula pelicula = buscarPelicula(titulo, numeroCopia);
+    	{
+    		throw new Exception("El cliente no tiene alquilada la copia" + numeroCopia + "de la película" + titulo);
+    	}
+    	
+    	Pelicula pelicula = buscarPelicula(titulo);
+    	if(pelicula != null)
+    	{
+    		pelicula.devolverCopia(numeroCopia);
+    		
+    		cliente.devolverCopia(titulo, numeroCopia);
+    	}
     }
-
-
-
-
+    
+    /**
+    * Agrega una nueva copia de una película existente
+    * @param titulo Título de la película. titulo != null.
+    * @throws Exception Si la película no existe en el catálogo.
+    */
+   public void agregarCopiaPelicula(String titulo) throws Exception
+   {
+       Pelicula pelicula = buscarPelicula(titulo);
+       if(pelicula == null)
+       {
+           throw new Exception("La película " + titulo + " no existe en el catálogo");
+       }
+       
+       pelicula.agregarCopia();
+   }
+    
+   /*
+    * Modifica la tarifa diaria de alquiler
+    * @param nuevaTarifa Nueva tarifa diaria. nuevaTarifa > 0.
+    * @throws Exception Si la nueva tarifa es menor o igual a 0.
+    */
+   
+   public void modificarTarifa(int nuevaTarifa) throws Exception
+   {
+	   if(nuevaTarifa <= 0)
+	   {
+		   throw new Exception("La tarifa debe ser mayor que 0");
+	   }
+	   
+	   tarifaDiaria = nuevaTarifa;
+   }
 
     /**
      * Retorna la lista de clientes de la videotienda
      * @return ArrayList la lista de clientes
      */
     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
+<<<<<<< HEAD
 
+=======
+   	public ArrayList<Cliente> darListaClientes()
+   	{
+   		return clientes;
+   	}
+   	
+>>>>>>> branch 'develop' of https://github.com/NavajaOff/n4_videotienda.git
     /**
      * Retorna el cat�logo de pel�culas de la videotienda
      * @return lista de pel�culas existentes. lista != null.
      */
     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
+<<<<<<< HEAD
 
+=======
+   	public ArrayList<Pelicula> darCatalogo()
+   	{
+   		return catalago;
+   	}
+   	
+   	/**
+   	 * Retorna la tarifa diaria actual
+   	 * @return tarifa diaria de alquiler
+   	 */
+   	
+   	public int darTarifaDiaria()
+   	{
+   		return tarifaDiaria;
+   	}
+   	
+>>>>>>> branch 'develop' of https://github.com/NavajaOff/n4_videotienda.git
     //-----------------------------------------------------------------
     // Puntos de Extensi�n
     //-----------------------------------------------------------------

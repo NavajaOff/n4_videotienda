@@ -40,5 +40,15 @@ public class Cliente
    {
 	   return Nombre;
    }
- 
+   
+   public String darDireccion()
+   {
+	   return Direccion;
+   }
+   
+   public int darSaldo()
+   {
+	   return Saldo;
+   }
+   
 }

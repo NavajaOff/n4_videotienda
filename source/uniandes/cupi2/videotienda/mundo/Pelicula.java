@@ -79,4 +79,21 @@ public class Pelicula
     	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n. 
     }
 
+    /**
+     * Retorna una copia de pel�cula para alquilar si hay disponibles. <br>
+     * <b>post: </b> la copia queda en la lista de prestadas.
+     * @return Copia que ha sido alquilada o null si no hay disponibles.
+     */
+    public Copia alquilarCopia( )
+    {
+    	if (disponible.isEmpty())
+    	{
+    		return null;
+    	}
+    	Copia copia = (Copia) disponibles.remove(0);
+    	prestadas.add(copia);
+    	return copia;
+    	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n.
+    }
+
 }

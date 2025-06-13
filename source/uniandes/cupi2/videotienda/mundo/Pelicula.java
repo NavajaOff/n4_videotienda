@@ -96,4 +96,34 @@ public class Pelicula
     	//TODO implementar. Recuerde retornar lo indicado en la documentaci�n.
     }
 
+    /**
+     * Devuelve una copia de la pel�cula y la coloca como disponible. <br>
+     * <b>post: </b> regresa la copia a la lista de disponibles, s�lo si est� prestada.
+     * @param codigoCopia C�digo de la copia que se quiere devolver.
+     * @throws Exception Si la copia a devolver no est� prestada.
+     */
+
+     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
+
+    /**
+     * Retorna el t�tulo de la pel�cula.
+     * @return t�tulo de la pel�cula.
+     */
+    public String darTitulo( )
+    {
+        return titulo;
+    }
+    
+    public Copia devolvercopia( int codigoCopia) throws Exception {
+    	for (int i = 0; i < prestadas.size(); i++) {
+    		Copia copia = prestadas.get(i);
+    		if (copia.darCodigo() == codigoCopia) {
+    			prestadas.remove(i);
+    			disponibles.add(copia);
+    			return;
+    		}
+    	}
+    	throw new Exception("La copia con código" + codigoCopia + " no está prestada" );
+    }
+    
 }

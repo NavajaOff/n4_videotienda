@@ -206,9 +206,35 @@ public class VideoTienda
     {
     	//TODO implementar
     	//Verificar que el cliente existe
-    	Cliente cliente
+    	Cliente cliente = buscarCliente(cedula);
+    	if(cliente == null)
+    	{
+    		throw new Exception("EL cliente con cédula" + cedula + "no existe");
+    	}
+    	
+    	if(cliente.darSaldo() < tarifaDiaria)
+    	{
+    		throw new Exception("El cliente no tiene saldo suficiente para el adquiler");
+    	}
+    	
+    	Pelicula pelicula = buscarPelicula(titulo);
+    	if(pelicula == null)
+    	{
+    		throw  new Exception("La película" + titulo + "no existe en el catálogo");
+    	}
+    	
+    	if(pelicula.darNumeroDisponible() == 0)
+    	{
+    		throw new Exception("No hay copias disponibles de la película" + titulo);
+    	}
+    	
+    	Copia copiaAlquilada = pelicula.alquilarCopia();
+    	cliente.adquilarCopia(copiaAlquilada);
+    	cliente.descargarSaldo(tarifaDiaria);
+    	
+    	return copiaAlquilada.darCodigo();
     }
-
+    		
     /**
      * Devuelve a la videotienda una copia alquilada por el cliente identificado con la c�dula dada. <br>
      * <b>post: </b> Si la copia est� alquilada por el cliente, la copia se deja disponible, y el cliente ya no la tiene entre sus prestadas.
@@ -221,7 +247,30 @@ public class VideoTienda
     public void devolverCopia( String titulo, int numeroCopia, String cedula ) throws Exception
     {
     	//TODO implementar
-
+    	Cliente cliente = buscarCliente(cedula);
+    	if(cliente == null)
+    	{
+    		throw new Exception("El cliente con cédula" + cedula + "no existe");
+    	}
+    	
+    	Copia copiaADevolver = cliente.buscarPeliculaAlquilada(titulo, numeroCopia);
+    	if(copiaADevolver = null)
+    	{
+    		throw new Exception("El cliente no tiene alquilada la copia" + numeroCopia + "de la película" + titulo);
+    	}
+    	
+    	Pelicula pelicula = buscarPelicula(titulo, numeroCopia);
+    	{
+    		throw new Exception("El cliente no tiene alquilada la copia" + numeroCopia + "de la película" + titulo);
+    	}
+    	
+    	Pelicula pelicula = buscarPelicula(titulo);
+    	if(pelicula != null)
+    	{
+    		pelicula.devolverCopia(numeroCopia);
+    		
+    		cliente.devolverCopia(titulo, numeroCopia);
+    	}
     }
     
     

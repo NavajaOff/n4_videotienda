@@ -81,7 +81,7 @@ public class VideoTienda
         {
             Properties datos = new Properties( );
             FileInputStream input = new FileInputStream( archivo );
-            datos.load( input );
+            datos.load( input);
 
             //Obtiene el n�mero de pel�culas
             peliculas = Integer.parseInt( datos.getProperty( "total.peliculas" ) );
@@ -273,24 +273,68 @@ public class VideoTienda
     	}
     }
     
+    /**
+    * Agrega una nueva copia de una película existente
+    * @param titulo Título de la película. titulo != null.
+    * @throws Exception Si la película no existe en el catálogo.
+    */
+   public void agregarCopiaPelicula(String titulo) throws Exception
+   {
+       Pelicula pelicula = buscarPelicula(titulo);
+       if(pelicula == null)
+       {
+           throw new Exception("La película " + titulo + " no existe en el catálogo");
+       }
+       
+       pelicula.agregarCopia();
+   }
     
-
-
-
-
+   /*
+    * Modifica la tarifa diaria de alquiler
+    * @param nuevaTarifa Nueva tarifa diaria. nuevaTarifa > 0.
+    * @throws Exception Si la nueva tarifa es menor o igual a 0.
+    */
+   
+   public void modificarTarifa(int nuevaTarifa) throws Exception
+   {
+	   if(nuevaTarifa <= 0)
+	   {
+		   throw new Exception("La tarifa debe ser mayor que 0");
+	   }
+	   
+	   tarifaDiaria = nuevaTarifa;
+   }
 
     /**
      * Retorna la lista de clientes de la videotienda
      * @return ArrayList la lista de clientes
      */
     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
-
+   	public ArrayList<Cliente> darListaClientes()
+   	{
+   		return clientes;
+   	}
+   	
     /**
      * Retorna el cat�logo de pel�culas de la videotienda
      * @return lista de pel�culas existentes. lista != null.
      */
     //TODO Definir la signatura del m�todo de acuerdo a la documentaci�n e implementarlo.
-
+   	public ArrayList<Pelicula> darCatalogo()
+   	{
+   		return catalago;
+   	}
+   	
+   	/**
+   	 * Retorna la tarifa diaria actual
+   	 * @return tarifa diaria de alquiler
+   	 */
+   	
+   	public int darTarifaDiaria()
+   	{
+   		return tarifaDiaria;
+   	}
+   	
     //-----------------------------------------------------------------
     // Puntos de Extensi�n
     //-----------------------------------------------------------------

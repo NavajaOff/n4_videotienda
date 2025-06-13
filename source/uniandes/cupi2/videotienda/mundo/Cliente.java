@@ -51,4 +51,14 @@ public class Cliente
 	   return Saldo;
    }
    
+   public int cargarSaldo(int monto)
+   {
+	   return Saldo += monto;
+   }
+   
+   public int descargarSaldo(int monto)
+   {
+	   return Saldo -= monto;
+   }
+   
 }
